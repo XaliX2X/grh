@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Hogar de los Animales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-reel" id="heroReel">
+      <!-- imágenes de fondo rotativas inyectadas por JS -->
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Pedagogía de las Ciencias Experimentales - Informática: Inclusión Educativa</p>
+      <h1 class="hero-title">El Hogar de<br>los Animales</h1>
+      <p class="hero-sub">Explora los grandes hábitats del planeta y descubre qué criaturas los llaman hogar.</p>
+      <div class="hero-actions">
+        <a href="#video"    class="btn-hero btn-hero--blue">Ver video</a>
+        <a href="#habitats" class="btn-hero btn-hero--green">Explorar hábitats</a>
+        <a href="#juego"    class="btn-hero btn-hero--orange">Ir al juego</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Desplázate para explorar</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ====== VIDEO ====== -->
+  <section class="video-section" id="video">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Video introductorio</span>
+        <h2 class="section-title">Conoce los hábitats del mundo</h2>
+        <p class="section-desc">Antes de clasificar, observa cómo son estos increíbles ecosistemas.</p>
+      </div>
+
+      <div class="video-frame">
+        <div style="position:relative; border-radius:16px; overflow:hidden; aspect-ratio:16/9;">
+          <iframe
+            src="https://www.youtube.com/embed/fDHf8C64pbg"
+            title="Conoce los hábitats del mundo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="position:absolute; inset:0; width:100%; height:100%; display:block;">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== HÁBITATS INFO ====== -->
+  <section class="habitats-section" id="habitats">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Los ecosistemas</span>
+        <h2 class="section-title">¿Cómo es cada hábitat?</h2>
+        <p class="section-desc">Haz clic en cualquier hábitat para conocer sus características y los animales que lo habitan.</p>
+      </div>
+
+      <div class="habitats-grid" id="habitatsGrid">
+        <!-- generado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== MODAL ====== -->
+  <div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="modal-img-wrap">
+        <img id="modalImg" src="" alt="" />
+        <div class="modal-img-gradient"></div>
+        <h3 class="modal-name" id="modalName"></h3>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta">
+          <span class="meta-pill" id="modalClima"></span>
+          <span class="meta-pill" id="modalRegion"></span>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-facts" id="modalFacts"></div>
+        <h4 class="modal-animals-title">Animales representativos</h4>
+        <div class="modal-animals-grid" id="modalAnimalsGrid">
+          <!-- generado por JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== JUEGO ====== -->
+  <section class="game-section" id="juego">
+    <div class="container">
+
+      <!-- PANTALLA DE INICIO DEL JUEGO -->
+      <div class="game-intro" id="gameIntro">
+        <div class="gi-badge">Actividad interactiva</div>
+        <h2 class="gi-title">¿Listo para el desafío?</h2>
+        <p class="gi-desc">Vas a clasificar <strong>25 animales</strong> en sus hábitats correctos. Tienes <strong>3 minutos</strong> para hacerlo.</p>
+        <ul class="gi-rules">
+          <li>
+            <span class="gi-rule-dot dot-blue"></span>
+            <span>El temporizador empieza cuando presiones "¡Empezar!"</span>
+          </li>
+          <li>
+            <span class="gi-rule-dot dot-yellow"></span>
+            <span>No podrás regresar a leer los hábitats mientras juegas</span>
+          </li>
+          <li>
+            <span class="gi-rule-dot danger-dot"></span>
+            <span>Cada error resta <strong>10 segundos</strong> del tiempo</span>
+          </li>
+          <li>
+            <span class="gi-rule-dot success-dot"></span>
+            <span>Clasifica todos antes de que se acabe el tiempo</span>
+          </li>
+        </ul>
+        <p class="gi-tip">Consejo: lee bien los hábitats y el video antes de empezar.</p>
+        <button class="btn-start" id="btnStart">¡Empezar!</button>
+      </div>
+
+      <!-- JUEGO ACTIVO -->
+      <div class="game-active hidden" id="gameActive">
+
+        <!-- Topbar: título + timer + salir -->
+        <div class="game-topbar">
+          <div class="game-topbar-title">
+            <h2>Clasifica a los animales</h2>
+            <p>Arrastra cada animal al hábitat donde vive</p>
+          </div>
+          <div class="game-topbar-right">
+            <div class="timer-wrap" id="timerWrap">
+              <div class="timer-ring">
+                <svg viewBox="0 0 64 64" width="48" height="48">
+                  <circle class="timer-bg" cx="32" cy="32" r="28" />
+                  <circle class="timer-arc" id="timerArc" cx="32" cy="32" r="28" />
+                </svg>
+                <span class="timer-text" id="timerText">3:00</span>
+              </div>
+              <span class="timer-label">Tiempo</span>
+            </div>
+            <button class="btn-exit" id="btnExit">Salir de la actividad</button>
+          </div>
+        </div>
+
+        <!-- Progreso + flash -->
+        <div class="game-meta-bar">
+          <div class="game-progress">
+            <div class="gp-labels">
+              <span>Clasificados: <strong id="progNum">0</strong> / <strong id="progTotal">25</strong></span>
+              <span id="progPct">0%</span>
+            </div>
+            <div class="gp-bar"><div class="gp-fill" id="gpFill"></div></div>
+          </div>
+          <div class="penalty-flash hidden" id="penaltyFlash">-10 segundos</div>
+        </div>
+
+        <!-- Toast de feedback -->
+        <div class="feedback-toast hidden" id="feedbackToast"></div>
+
+        <!-- Layout principal: pool + drop grid -->
+        <div class="game-layout">
+          <div class="game-pool-wrap">
+            <p class="pool-label">Por clasificar</p>
+            <div class="game-pool" id="gamePool"></div>
+          </div>
+          <div class="drop-grid" id="dropGrid"></div>
+        </div>
+
+        <!-- Win screen -->
+        <div class="win-screen hidden" id="winScreen">
+          <div class="win-content">
+            <div class="win-icon win-icon--success">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" width="40" height="40">
+                <circle cx="24" cy="24" r="22" stroke="currentColor"/>
+                <polyline points="13,24 21,32 35,16" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="win-title">¡Excelente trabajo!</h3>
+            <p class="win-desc">Clasificaste todos los animales correctamente. ¡Eres un experto en hábitats!</p>
+            <p class="win-time" id="winTime"></p>
+            <div class="win-actions">
+              <button class="btn-start" id="btnReplay">Jugar de nuevo</button>
+              <button class="btn-exit-win" id="btnExitWin">Volver al inicio</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Time up screen -->
+        <div class="timeup-screen hidden" id="timeupScreen">
+          <div class="win-icon win-icon--danger">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" width="40" height="40">
+              <circle cx="24" cy="24" r="22"/>
+              <line x1="24" y1="14" x2="24" y2="26" stroke-linecap="round"/>
+              <circle cx="24" cy="33" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="win-title">Se acabó el tiempo</h3>
+          <p class="win-desc" id="timeupDesc"></p>
+          <div class="win-actions">
+            <button class="btn-start" id="btnRetry">Intentar de nuevo</button>
+            <button class="btn-exit-win" id="btnExitTimeup">Volver al inicio</button>
+          </div>
+        </div>
+
+      </div><!-- /game-active -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Actividad educativa · Diseño Universal para el Aprendizaje (DUA) · Ciencias Naturales · 8–10 años</p>
+    </div>
+  </footer>
+
+  <!-- ====== ANIMAL DETAIL OVERLAY ====== -->
+  <div class="ad-overlay" id="adOverlay" role="dialog" aria-modal="true" aria-labelledby="adAnimalTitle" style="z-index:999999;">
+    <div class="ad-panel" id="adPanel">
+      <div class="ad-header" id="adHeader">
+        <img id="adHeaderImg" src="" alt="" />
+        <div class="ad-header-grad"></div>
+        <div class="ad-header-info">
+          <div class="ad-habitat-pill" id="adHabitatPill"></div>
+          <h2 class="ad-animal-title" id="adAnimalTitle"></h2>
+        </div>
+        <button class="ad-close" id="adClose" aria-label="Cerrar detalle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="ad-body">
+        <div class="ad-info-col">
+          <div class="ad-tags" id="adTags"></div>
+          <p class="ad-desc" id="adDesc"></p>
+          <div class="ad-facts" id="adFacts"></div>
+        </div>
+        <div class="ad-media-col">
+          <div class="ad-videos-row">
+            <div class="ad-video-h">
+              <video id="adVideoAerea" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;">
+                <source id="adVideoAereaSrc" src="" type="video/mp4" />
+              </video>
+            </div>
+            <div class="ad-video-h">
+              <video id="adVideoFrontal" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;">
+                <source id="adVideoFrontalSrc" src="" type="video/mp4" />
+              </video>
+            </div>
+            <div class="ad-video-h">
+              <video id="adVideoLateral" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;">
+                <source id="adVideoLateralSrc" src="" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+          <div class="ad-audio-block">
+            <div class="ad-audio-texts">
+              <p class="ad-audio-title">Sonido del animal</p>
+              <p class="ad-audio-name" id="adAudioName"></p>
+            </div>
+            <audio id="adAudio" controls preload="none">
+              <source id="adAudioSrc" src="" type="audio/mpeg" />
+            </audio>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
